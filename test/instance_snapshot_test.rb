@@ -116,7 +116,11 @@ class InstanceSnapshotTest < Test::Unit::TestCase
     snapshot = Introspection::InstanceSnapshot.new(instance)
     methods_for_owner = snapshot.methods.select { |m| m.owner == owner }
     expected_method = Introspection::Method.new(owner, method_name, visibility)
-    assert snapshot.methods.include?(expected_method), "Expected method: #{expected_method.inspect}\nMethods detected: #{methods_for_owner.inspect}"
+    error_message  = [
+      "Expected method: #{expected_method.inspect}",
+      "Methods detected: #{methods_for_owner.inspect}"
+    ].join("\n")
+    assert snapshot.methods.include?(expected_method), error_message
   end
 
   def for_all_method_visibilities(&block)
