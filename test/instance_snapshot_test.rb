@@ -1,17 +1,11 @@
-require "rubygems"
-require "bundler/setup"
-
-$LOAD_PATH.unshift(File.expand_path("../../lib", __FILE__))
-
-require "introspection"
-require "test/unit"
+require "test_helper"
 
 class InstanceSnapshotTest < Test::Unit::TestCase
 
   def test_detect_instance_method_on_singleton_class
     for_all_method_visibilities do |visibility|
       instance = Class.new.new
-      instance.meta_def(:foo) {}
+      instance.metaclass.send(:define_method, :foo) {}
       instance.metaclass.send(visibility, :foo)
       assert_instance_method_included(instance, instance.metaclass, "foo", visibility)
     end
@@ -121,12 +115,6 @@ class InstanceSnapshotTest < Test::Unit::TestCase
       "Methods detected: #{methods_for_owner.inspect}"
     ].join("\n")
     assert snapshot.methods.include?(expected_method), error_message
-  end
-
-  def for_all_method_visibilities(&block)
-    [:public, :protected, :private].each do |visibility|
-      block.call(visibility)
-    end
   end
 
 end
