@@ -16,7 +16,7 @@ module Introspection
   end
   module Assertions
     def assert_method_included(object, owner, method_name, visibility)
-      snapshot = Introspection::ClassSnapshot.new(object)
+      snapshot = Introspection::Snapshot.new(object)
       methods_for_owner = snapshot.methods.select { |m| m.owner == owner }
       expected_method = Introspection::Method.new(owner, method_name, visibility)
       error_message  = [

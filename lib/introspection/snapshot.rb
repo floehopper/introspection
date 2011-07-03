@@ -2,7 +2,7 @@ require "metaid"
 
 module Introspection
 
-  class ClassSnapshot
+  class Snapshot
     attr_reader :methods
 
     def initialize(klass)
