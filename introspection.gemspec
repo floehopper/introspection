@@ -23,4 +23,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "metaid", "~> 1.0"
+
+  s.add_development_dependency "rake"
 end
