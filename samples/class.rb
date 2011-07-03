@@ -1,7 +1,3 @@
-require "rubygems"
-require "bundler/setup"
-require "metaid"
-
 module Kernel
   def foo
     puts "Kernel#foo"
@@ -124,13 +120,3 @@ class Sonny < Daddy
 end
 
 Sonny.foo
-
-ancestors = []
-klass = Sonny
-while klass
-  ancestors << klass.metaclass
-  superklass = klass.respond_to?(:superclass) ? klass.superclass : nil
-  ancestors += klass.metaclass.ancestors - (superklass ? superklass.metaclass.ancestors : [])
-  klass = superklass
-end
-p ancestors

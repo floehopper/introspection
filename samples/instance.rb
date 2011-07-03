@@ -1,7 +1,3 @@
-require "rubygems"
-require "bundler/setup"
-require "metaid"
-
 module Kernel
   def foo
     puts "Kernel#foo"
@@ -112,5 +108,3 @@ class << sonny
 end
 
 sonny.foo
-
-p [sonny.metaclass] + sonny.metaclass.ancestors
