@@ -15,7 +15,8 @@ module Introspection
   module Assertions
     def assert_method_exists(object, owner, method_name, visibility)
       snapshot = Introspection::Snapshot.new(object)
-      expected_method = Introspection::Method.new(owner, method_name, visibility)
+      method = owner.instance_method(method_name)
+      expected_method = Introspection::Method.new(method, visibility)
       methods_for_name = snapshot.methods.select { |m| m.name == method_name }
       assert_equal [expected_method], methods_for_name
     end

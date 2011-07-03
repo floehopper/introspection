@@ -11,8 +11,9 @@ module Introspection
         [:public, :protected, :private].map do |visibility|
           query_method = "#{visibility}_instance_methods"
           receiver.send(query_method, false).map do |method|
-            if receiver.instance_method(method).owner.equal?(receiver)
-              Method.new(receiver, method, visibility)
+            unbound_method = receiver.instance_method(method)
+            if unbound_method.owner.equal?(receiver)
+              Method.new(unbound_method, visibility)
             end
           end.compact
         end

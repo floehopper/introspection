@@ -1,14 +1,20 @@
+require "forwardable"
+
 module Introspection
 
   class Method
-    attr_reader :owner, :name, :visibility
 
-    def initialize(owner, name, visibility)
-      @owner, @name, @visibility = owner, name, visibility
+    extend Forwardable
+    def_delegators :@method, :owner, :name
+
+    attr_reader :method, :visibility
+
+    def initialize(method, visibility)
+      @method, @visibility = method, visibility
     end
 
     def ==(other)
-      (owner == other.owner) && (name == other.name) && (visibility == other.visibility)
+      (method == other.method) && (visibility == other.visibility)
     end
 
     def eql?(other)
@@ -16,7 +22,7 @@ module Introspection
     end
 
     def hash
-      [owner, name, visibility].hash
+      [method, visibility].hash
     end
 
     def inspect
