@@ -7,7 +7,7 @@ class ClassSnapshotTest < Test::Unit::TestCase
       klass = Class.new
       klass.metaclass.send(:define_method, :foo) {}
       klass.metaclass.send(visibility, :foo)
-      assert_class_method_included(klass, klass, "foo", visibility)
+      assert_class_method_included(klass, klass.metaclass, "foo", visibility)
     end
   end
 
@@ -17,7 +17,7 @@ class ClassSnapshotTest < Test::Unit::TestCase
       superklass.metaclass.send(:define_method, :foo) {}
       superklass.metaclass.send(visibility, :foo)
       klass = Class.new(superklass)
-      assert_class_method_included(klass, superklass, "foo", visibility)
+      assert_class_method_included(klass, superklass.metaclass, "foo", visibility)
     end
   end
 
@@ -27,7 +27,7 @@ class ClassSnapshotTest < Test::Unit::TestCase
       superduperklass.metaclass.send(:define_method, :foo) {}
       superduperklass.metaclass.send(visibility, :foo)
       klass = Class.new(Class.new(superduperklass))
-      assert_class_method_included(klass, superduperklass, "foo", visibility)
+      assert_class_method_included(klass, superduperklass.metaclass, "foo", visibility)
     end
   end
 

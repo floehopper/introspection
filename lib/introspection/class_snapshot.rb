@@ -4,16 +4,19 @@ module Introspection
     attr_reader :methods
 
     def initialize(klass)
+      ancestors = []
+      while klass
+        ancestors << klass.metaclass
+        superklass = klass.respond_to?(:superclass) ? klass.superclass : nil
+        ancestors += klass.metaclass.ancestors - (superklass ? superklass.metaclass.ancestors : [])
+        klass = superklass
+      end
+
       @methods = Set.new(
-        klass.metaclass.ancestors.map do |meta_ancestor|
-          meta_ancestor.public_instance_methods(false).map { |method| Method.new(meta_ancestor, method, :public) } +
-          meta_ancestor.protected_instance_methods(false).map { |method| Method.new(meta_ancestor, method, :protected) } +
-          meta_ancestor.private_instance_methods(false).map { |method| Method.new(meta_ancestor, method, :private) }
-        end.flatten +
-        klass.ancestors.map do |ancestor|
-          ancestor.metaclass.public_instance_methods(false).select { |method| ancestor.metaclass.instance_method(method).owner == ancestor.metaclass }.map { |method| Method.new(ancestor, method, :public) } +
-          ancestor.metaclass.protected_instance_methods(false).select { |method| ancestor.metaclass.instance_method(method).owner == ancestor.metaclass }.map { |method| Method.new(ancestor, method, :protected) } +
-          ancestor.metaclass.private_instance_methods(false).select { |method| ancestor.metaclass.instance_method(method).owner == ancestor.metaclass }.map { |method| Method.new(ancestor, method, :private) }
+        ancestors.map do |ancestor|
+          ancestor.public_instance_methods(false).map { |method| Method.new(ancestor, method, :public) } +
+          ancestor.protected_instance_methods(false).map { |method| Method.new(ancestor, method, :protected) } +
+          ancestor.private_instance_methods(false).map { |method| Method.new(ancestor, method, :private) }
         end.flatten
       )
     end
