@@ -15,15 +15,11 @@ module Introspection
     end
   end
   module Assertions
-    def assert_method_included(object, owner, method_name, visibility)
+    def assert_method_exists(object, owner, method_name, visibility)
       snapshot = Introspection::Snapshot.new(object)
-      methods_for_owner = snapshot.methods.select { |m| m.owner == owner }
       expected_method = Introspection::Method.new(owner, method_name, visibility)
-      error_message  = [
-        "Expected method: #{expected_method.inspect}",
-        "Methods detected: #{methods_for_owner.inspect}"
-      ].join("\n")
-      assert snapshot.methods.include?(expected_method), error_message
+      methods_for_name = snapshot.methods.select { |m| m.name == method_name }
+      assert_equal [expected_method], methods_for_name
     end
   end
 end
