@@ -1,18 +1,37 @@
 require "metaid"
 
 module Introspection
+
   module Receivers
-    def receivers
-      receivers = []
-      object = self
-      while object
-        receivers << object.metaclass
-        superklass = object.respond_to?(:superclass) ? object.superclass : nil
-        receivers += object.metaclass.ancestors - (superklass ? superklass.metaclass.ancestors : [])
-        object = superklass
+
+    class NullMetaclass
+      def ancestors
+        Array.new
       end
-      receivers
     end
+
+    class NullReceiver
+      def metaclass
+        NullMetaclass.new
+      end
+
+      def receivers
+        Array.new
+      end
+    end
+
+    def superklass
+      respond_to?(:superclass) ? superclass : NullReceiver.new
+    end
+
+    def local_receivers
+      [metaclass] + metaclass.ancestors - superklass.metaclass.ancestors
+    end
+
+    def receivers
+      local_receivers + superklass.receivers
+    end
+
   end
 end
 
