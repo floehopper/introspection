@@ -1,3 +1,5 @@
+require "metaid"
+
 module Introspection
 
   class ClassSnapshot
@@ -12,13 +14,11 @@ module Introspection
         klass = superklass
       end
 
-      @methods = Set.new(
-        ancestors.map do |ancestor|
-          ancestor.public_instance_methods(false).map { |method| Method.new(ancestor, method, :public) } +
-          ancestor.protected_instance_methods(false).map { |method| Method.new(ancestor, method, :protected) } +
-          ancestor.private_instance_methods(false).map { |method| Method.new(ancestor, method, :private) }
-        end.flatten
-      )
+      @methods = ancestors.map do |ancestor|
+        ancestor.public_instance_methods(false).map { |method| Method.new(ancestor, method, :public) } +
+        ancestor.protected_instance_methods(false).map { |method| Method.new(ancestor, method, :protected) } +
+        ancestor.private_instance_methods(false).map { |method| Method.new(ancestor, method, :private) }
+      end.flatten
     end
   end
 end

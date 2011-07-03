@@ -1,4 +1,3 @@
-require "set"
 require "metaid"
 
 module Introspection
@@ -8,11 +7,11 @@ module Introspection
 
     def initialize(instance)
       ancestors = ([instance.metaclass] + instance.metaclass.ancestors)
-      @methods = Set.new(ancestors.map do |ancestor|
+      @methods = ancestors.map do |ancestor|
         ancestor.public_instance_methods(false).select { |method| ancestor.instance_method(method).owner == ancestor }.map { |method| Method.new(ancestor, method, :public) } +
         ancestor.protected_instance_methods(false).select { |method| ancestor.instance_method(method).owner == ancestor }.map { |method| Method.new(ancestor, method, :protected) } +
         ancestor.private_instance_methods(false).select { |method| ancestor.instance_method(method).owner == ancestor }.map { |method| Method.new(ancestor, method, :private) }
-      end.flatten)
+      end.flatten
     end
 
   end
