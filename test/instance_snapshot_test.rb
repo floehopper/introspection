@@ -22,6 +22,19 @@ class InstanceSnapshotTest < Test::Unit::TestCase
     end
   end
 
+  def test_detect_instance_method_on_module_included_module_included_into_singleton_class
+    for_all_method_visibilities do |visibility|
+      supermod = Module.new
+      supermod.send(:define_method, :foo) {}
+      supermod.send(visibility, :foo)
+      mod = Module.new
+      mod.send(:include, supermod)
+      instance = Class.new.new
+      instance.extend(mod)
+      assert_instance_method_included(instance, supermod, "foo", visibility)
+    end
+  end
+
   def test_detect_instance_method_on_class
     for_all_method_visibilities do |visibility|
       klass = Class.new
