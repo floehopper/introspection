@@ -5,16 +5,16 @@ module Introspection
   class Method
 
     extend Forwardable
-    def_delegators :@method, :owner, :name
+    def_delegators :@method, :owner
 
     attr_reader :method, :visibility
 
-    def initialize(method, visibility)
+    def initialize(method, visibility = :public)
       @method, @visibility = method, visibility
     end
 
     def ==(other)
-      (method == other.method) && (visibility == other.visibility)
+      (owner == other.owner) && (name == other.name) && (visibility == other.visibility)
     end
 
     def eql?(other)
@@ -22,7 +22,11 @@ module Introspection
     end
 
     def hash
-      [method, visibility].hash
+      [owner, name, visibility].hash
+    end
+
+    def name
+      @method.name.to_sym
     end
 
     def inspect

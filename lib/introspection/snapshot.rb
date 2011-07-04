@@ -19,5 +19,17 @@ module Introspection
         end
       end.flatten
     end
+
+    def diff(other)
+      {
+        :added => other.methods - methods,
+        :removed => methods - other.methods
+      }
+    end
+
+    def changed?(other)
+      diff(other).values.flatten.any?
+    end
+
   end
 end

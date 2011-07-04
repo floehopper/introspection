@@ -7,7 +7,7 @@ class ModuleSnapshotTest < Test::Unit::TestCase
       mod = Module.new
       mod.metaclass.send(:define_method, :foo) {}
       mod.metaclass.send(visibility, :foo)
-      assert_method_exists(mod, mod.metaclass, "foo", visibility)
+      assert_method_exists(mod, mod.metaclass, :foo, visibility)
     end
   end
 
@@ -19,7 +19,7 @@ class ModuleSnapshotTest < Test::Unit::TestCase
       mod = Module.new do
         extend supermod
       end
-      assert_method_exists(mod, supermod, "foo", visibility)
+      assert_method_exists(mod, supermod, :foo, visibility)
     end
   end
 
@@ -34,7 +34,7 @@ class ModuleSnapshotTest < Test::Unit::TestCase
       mod = Module.new do
         extend supermod
       end
-      assert_method_exists(mod, superdupermod, "foo", visibility)
+      assert_method_exists(mod, superdupermod, :foo, visibility)
     end
   end
 end
