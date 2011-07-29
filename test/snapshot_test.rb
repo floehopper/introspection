@@ -1,4 +1,5 @@
 require "test_helper"
+require "blankslate"
 
 class SnapshotTest < Test::Unit::TestCase
 
@@ -45,6 +46,10 @@ class SnapshotTest < Test::Unit::TestCase
   def test_should_indicate_snapshot_has_not_changed_when_method_no_methods_are_added_or_removed
     instance = Class.new.new
     assert_snapshot_unchanged(instance) {}
+  end
+
+  def test_should_cope_with_blankslate_object
+    assert_nothing_raised { Snapshot.new(BlankSlate.new) }
   end
 
 end
