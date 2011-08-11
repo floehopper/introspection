@@ -5,9 +5,9 @@ class ModuleSnapshotTest < Test::Unit::TestCase
   def test_detect_module_method_on_module
     for_all_method_visibilities do |visibility|
       mod = Module.new
-      mod.metaclass.send(:define_method, :foo) {}
-      mod.metaclass.send(visibility, :foo)
-      assert_method_exists(mod, mod.metaclass, :foo, visibility)
+      mod.__metaclass__.send(:define_method, :foo) {}
+      mod.__metaclass__.send(visibility, :foo)
+      assert_method_exists(mod, mod.__metaclass__, :foo, visibility)
     end
   end
 

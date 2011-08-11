@@ -1,5 +1,5 @@
 require "introspection/receivers"
-require "metaid"
+require "metaclass"
 
 module Introspection
 

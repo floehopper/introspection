@@ -5,29 +5,29 @@ class ClassSnapshotTest < Test::Unit::TestCase
   def test_detect_class_method_on_class
     for_all_method_visibilities do |visibility|
       klass = Class.new
-      klass.metaclass.send(:define_method, :foo) {}
-      klass.metaclass.send(visibility, :foo)
-      assert_method_exists(klass, klass.metaclass, :foo, visibility)
+      klass.__metaclass__.send(:define_method, :foo) {}
+      klass.__metaclass__.send(visibility, :foo)
+      assert_method_exists(klass, klass.__metaclass__, :foo, visibility)
     end
   end
 
   def test_detect_class_method_on_superclass
     for_all_method_visibilities do |visibility|
       superklass = Class.new
-      superklass.metaclass.send(:define_method, :foo) {}
-      superklass.metaclass.send(visibility, :foo)
+      superklass.__metaclass__.send(:define_method, :foo) {}
+      superklass.__metaclass__.send(visibility, :foo)
       klass = Class.new(superklass)
-      assert_method_exists(klass, superklass.metaclass, :foo, visibility)
+      assert_method_exists(klass, superklass.__metaclass__, :foo, visibility)
     end
   end
 
   def test_detect_class_method_on_superclass_of_superclass
     for_all_method_visibilities do |visibility|
       superduperklass = Class.new
-      superduperklass.metaclass.send(:define_method, :foo) {}
-      superduperklass.metaclass.send(visibility, :foo)
+      superduperklass.__metaclass__.send(:define_method, :foo) {}
+      superduperklass.__metaclass__.send(visibility, :foo)
       klass = Class.new(Class.new(superduperklass))
-      assert_method_exists(klass, superduperklass.metaclass, :foo, visibility)
+      assert_method_exists(klass, superduperklass.__metaclass__, :foo, visibility)
     end
   end
 

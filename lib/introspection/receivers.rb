@@ -1,4 +1,4 @@
-require "metaid"
+require "metaclass"
 
 module Introspection
 
@@ -11,7 +11,7 @@ module Introspection
     end
 
     class NullReceiver
-      def metaclass
+      def __metaclass__
         NullMetaclass.new
       end
 
@@ -25,7 +25,7 @@ module Introspection
     end
 
     def local_receivers
-      [metaclass] + metaclass.ancestors - superklass.metaclass.ancestors
+      [__metaclass__] + __metaclass__.ancestors - superklass.__metaclass__.ancestors
     end
 
     def receivers

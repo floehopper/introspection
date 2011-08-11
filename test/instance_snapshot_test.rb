@@ -5,9 +5,9 @@ class InstanceSnapshotTest < Test::Unit::TestCase
   def test_detect_instance_method_on_singleton_class
     for_all_method_visibilities do |visibility|
       instance = Class.new.new
-      instance.metaclass.send(:define_method, :foo) {}
-      instance.metaclass.send(visibility, :foo)
-      assert_method_exists(instance, instance.metaclass, :foo, visibility)
+      instance.__metaclass__.send(:define_method, :foo) {}
+      instance.__metaclass__.send(visibility, :foo)
+      assert_method_exists(instance, instance.__metaclass__, :foo, visibility)
     end
   end
 
