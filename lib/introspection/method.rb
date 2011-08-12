@@ -7,7 +7,7 @@ module Introspection
     extend Forwardable
     def_delegators :@method, :owner
 
-    attr_reader :method, :visibility
+    attr_reader :visibility
 
     def initialize(method, visibility = :public)
       @method, @visibility = method, visibility
