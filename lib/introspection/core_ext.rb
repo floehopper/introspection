@@ -1,0 +1,1 @@
+require "introspection/core_ext/symbol"
