@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://jamesmead.org"
   s.summary     = %q{Dynamic inspection of the hierarchy of method definitions on a Ruby object.}
   s.description = %q{}
+  s.license = "MIT"
 
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project = "introspection"
