@@ -27,4 +27,5 @@ Gem::Specification.new do |s|
   s.add_dependency "instantiator", "~> 0.0.3"
 
   s.add_development_dependency "rake"
+  s.add_development_dependency "blankslate"
 end
