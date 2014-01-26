@@ -25,7 +25,11 @@ module Introspection
     end
 
     def local_receivers
-      [__metaclass__] + __metaclass__.ancestors - superklass.__metaclass__.ancestors
+      receivers = []
+      receivers << __metaclass__ if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('2.1.0')
+      receivers += __metaclass__.ancestors
+      receivers -= superklass.__metaclass__.ancestors
+      receivers
     end
 
     def receivers
