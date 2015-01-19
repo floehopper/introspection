@@ -1,6 +1,6 @@
 require "test_helper"
 
-class InstanceSnapshotTest < Test::Unit::TestCase
+class InstanceSnapshotTest < Minitest::Test
 
   def test_detect_instance_method_on_singleton_class
     for_all_method_visibilities do |visibility|

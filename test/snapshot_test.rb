@@ -1,7 +1,7 @@
 require "test_helper"
 require "blankslate"
 
-class SnapshotTest < Test::Unit::TestCase
+class SnapshotTest < Minitest::Test
 
   include Introspection
 
@@ -49,7 +49,8 @@ class SnapshotTest < Test::Unit::TestCase
   end
 
   def test_should_cope_with_blankslate_object
-    assert_nothing_raised { Snapshot.new(BlankSlate.new) }
+    # Should not raise anything
+    Snapshot.new(BlankSlate.new)
   end
 
 end

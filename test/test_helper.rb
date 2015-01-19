@@ -2,7 +2,7 @@ require "rubygems"
 require "bundler/setup"
 
 require "introspection"
-require "test/unit"
+require "minitest/autorun"
 
 module Introspection
   module TestHelper
@@ -23,7 +23,7 @@ module Introspection
   end
 end
 
-class Test::Unit::TestCase
+class Minitest::Test
   include Introspection::TestHelper
   include Introspection::LocalAssertions
   include Introspection::Assertions

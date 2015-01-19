@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ModuleSnapshotTest < Test::Unit::TestCase
+class ModuleSnapshotTest < Minitest::Test
 
   def test_detect_module_method_on_module
     for_all_method_visibilities do |visibility|
