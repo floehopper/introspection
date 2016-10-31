@@ -1,6 +1,6 @@
 sudo: required
 dist: trusty
-before_install: gem install bundler
+before_install: ruby -e "p RUBY_ENGINE" | grep --invert-match rbx && gem install bundler
 rvm:
   - 1.8
   - 1.9
