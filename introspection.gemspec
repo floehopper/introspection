@@ -24,8 +24,12 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "metaclass", "~> 0.0.1"
-  
+
   s.add_development_dependency "minitest", "~> 5.0"
-  s.add_development_dependency "rake"
+  if RUBY_VERSION < '1.9.3'
+    s.add_development_dependency "rake", "~> 10.0"
+  else
+    s.add_development_dependency "rake"
+  end
   s.add_development_dependency "blankslate"
 end
