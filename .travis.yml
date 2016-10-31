@@ -1,5 +1,7 @@
 language: ruby
-before_install: gem install bundler
+before_install:
+  - gem install bundler
+  - rvm list known
 rvm:
   - 1.8
   - 1.9
