@@ -11,7 +11,9 @@ rvm:
   - 2.4.1
   - ruby-head
   - jruby
+  - jruby-head
 matrix:
   allow_failures:
   - rvm: ruby-head
+  - rvm: jruby-head
   fast_finish: true
