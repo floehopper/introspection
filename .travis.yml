@@ -9,4 +9,9 @@ rvm:
   - 2.2
   - 2.3
   - 2.4.1
+  - ruby-head
   - jruby
+matrix:
+  allow_failures:
+  - rvm: ruby-head
+  fast_finish: true
