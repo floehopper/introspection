@@ -1,4 +1,4 @@
-## Introspection [![Build Status](https://travis-ci.org/floehopper/introspection.svg?branch=master)](https://travis-ci.org/floehopper/introspection) [![Gem Version](https://badge.fury.io/rb/introspection.png)](http://badge.fury.io/rb/introspection)
+## Introspection [![Build Status](https://travis-ci.com/floehopper/introspection.svg?branch=master)](https://travis-ci.com/github/floehopper/introspection) [![Gem Version](https://badge.fury.io/rb/introspection.png)](http://badge.fury.io/rb/introspection)
 
 Dynamic inspection of the hierarchy of method definitions on a Ruby object.
 
