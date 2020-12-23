@@ -1,6 +1,9 @@
 sudo: false
 language: ruby
-cache: bundler
+cache:
+  bundler: true
+  directories:
+    - /home/travis/.rvm/
 dist: trusty
 rvm:
   - 1.9
