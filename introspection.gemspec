@@ -27,6 +27,8 @@ Gem::Specification.new do |s|
 
   if RUBY_VERSION < '2'
     s.add_development_dependency "minitest", "~> 5.9.1"
+  elsif RUBY_VERSION < '2.2'
+    s.add_development_dependency "minitest", "~> 5.11.3"
   else
     s.add_development_dependency "minitest", "~> 5.0"
   end
