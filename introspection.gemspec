@@ -34,6 +34,8 @@ Gem::Specification.new do |s|
     s.add_development_dependency "rake", "~> 10.0"
   elsif RUBY_VERSION < '2'
     s.add_development_dependency "rake", "~> 12.2.1"
+  elsif RUBY_VERSION < '2.2'
+    s.add_development_dependency "rake", "~> 12.3.3"
   else
     s.add_development_dependency "rake"
   end
