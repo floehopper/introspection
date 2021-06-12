@@ -28,6 +28,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency "minitest", "~> 5.0"
   if RUBY_VERSION < '1.9.3'
     s.add_development_dependency "rake", "~> 10.0"
+  elsif RUBY_VERSION < '2'
+    s.add_development_dependency "rake", "~> 12.2.1"
   else
     s.add_development_dependency "rake"
   end
