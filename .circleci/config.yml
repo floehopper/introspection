@@ -3,18 +3,27 @@ version: 2.1
 jobs:
   build:
     parameters:
-      ruby-version:
+      docker-image:
         type: string
     docker:
-      - image: ruby:<< parameters.ruby-version >>
+      - image: << parameters.docker-image >>
     steps:
       - checkout
+      - run: ruby --version
       - when:
           condition:
-            equal: [ "1.9", << parameters.ruby-version >>]
+            equal: [ "ruby:1.9", << parameters.docker-image >>]
           steps:
             - run: gem update --system 2.7.8
             - run: gem install bundler -v1.17.3
+      - when:
+          condition:
+            equal: [ "jruby:latest", << parameters.docker-image >>]
+          steps:
+            - run: apt-get update
+            - run: apt-get install -y git
+      - run: gem --version
+      - run: bundle --version
       - run: bundle install
       - run: bundle exec rake
 
@@ -24,7 +33,7 @@ workflows:
       - build:
           matrix:
             parameters:
-              ruby-version: ["1.9", "2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "latest"]
+              docker-image: ["ruby:1.9", "ruby:2.0", "ruby:2.1", "ruby:2.2", "ruby:2.3", "ruby:2.4", "ruby:2.5", "ruby:2.6", "ruby:2.7", "ruby:latest", "jruby:latest"]
   weekly:
     triggers:
       - schedule:
