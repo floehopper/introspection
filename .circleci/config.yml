@@ -1,0 +1,36 @@
+version: 2.1
+
+jobs:
+  build:
+    parameters:
+      ruby-version:
+        type: string
+    docker:
+      - image: ruby:<< parameters.ruby-version >>
+    steps:
+      - checkout
+      - when:
+          condition:
+            equal: [ "1.9", << parameters.ruby-version >>]
+          steps:
+            - run: gem update --system 2.7.8
+            - run: gem install bundler -v1.17.3
+      - run: bundle install
+      - run: bundle exec rake
+
+workflows:
+  build-all:
+    jobs: &all-jobs
+      - build:
+          matrix:
+            parameters:
+              ruby-version: ["1.9", "2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "latest"]
+  weekly:
+    triggers:
+      - schedule:
+          cron: "0 2 * * 0"
+          filters:
+            branches:
+              only:
+                - main
+    jobs: *all-jobs
